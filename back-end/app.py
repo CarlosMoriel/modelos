@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import request
-from classifyPlants import classify_image
+from plants.classifyPlants import classify_image
 
 app = Flask(__name__)
 
