@@ -5,7 +5,7 @@ import gradio as gr
 import numpy as np
 import json
 
-learn2 = load_learner('plantsModel.pkl')
+learn2 = load_learner('plants/plantsModel.pkl')
 
 categories = ('Aptenia cordifolia', 'aloe vera', 'epipremnum aureum', 'sansevieria trifasciata', 'spathiphyllum')
 
