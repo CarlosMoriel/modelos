@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import "./App.css";
 import AppBar from "./components/AppBar";
@@ -29,5 +30,6 @@ function App() {
 		</div>
 	);
 }
+
 
 export default App;
