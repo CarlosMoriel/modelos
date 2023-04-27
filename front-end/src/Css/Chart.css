@@ -1,0 +1,20 @@
+.myChart {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	width: 100%;
+}
+.layer {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.node {
+	border-radius: 20px;
+	align-self: center;
+	background-color: red;
+	width: 60px;
+	margin: 50px;
+}

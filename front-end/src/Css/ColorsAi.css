@@ -1,0 +1,25 @@
+.ColorSelect {
+	display: flex;
+}
+
+.select {
+	flex: 3;
+}
+
+.background {
+	background-color: black;
+	display: flex;
+	flex: 6;
+	width: 100%;
+}
+
+.text {
+	flex: 1;
+	align-self: center;
+	font-size: 30px;
+	color: white;
+}
+
+.actions {
+	margin: 20px;
+}
