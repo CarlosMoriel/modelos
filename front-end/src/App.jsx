@@ -4,6 +4,7 @@ import "./App.css";
 import AppBar from "./components/AppBar";
 import ColorsAi from "./components/ColorsAI";
 import ImagesAI from "./components/ImagesAI";
+import PlantsAI from "./components/PlantsAI";
 
 function App() {
 	const [page, setPage] = useState("");
@@ -16,6 +17,9 @@ function App() {
 				break;
 			case "Colors AI":
 				setRenderPage(<ColorsAi />);
+				break;
+			case "Plants AI":
+				setRenderPage(<PlantsAI />);
 				break;
 			default:
 				setRenderPage(<ImagesAI />);

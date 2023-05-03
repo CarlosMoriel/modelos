@@ -1,8 +1,10 @@
 from flask import Flask
 from flask import request
+from flask_cors import CORS
 from plants.classifyPlants import classify_image
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/plants/upload', methods=['POST'])
 def upload_file():

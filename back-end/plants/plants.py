@@ -16,7 +16,7 @@ plants = plants.new(
 dls = plants.dataloaders(path)
 
 learn = vision_learner(dls, resnet18, metrics=error_rate)
-learn.fine_tune(4)
+learn.fine_tune(6)
 
 
 learn.export()
