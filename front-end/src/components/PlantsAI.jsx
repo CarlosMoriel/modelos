@@ -1,4 +1,12 @@
 import React from "react";
+
+const BASE_URL = "http://127.0.0.1";
+const PORT = "8000";
+const API_URL = `${BASE_URL}:${PORT}`;
+const PLANTS_ENDPOINT = `/plants`;
+const PLANTS_URL = `${API_URL}${PLANTS_ENDPOINT}`;
+const PLANTS_UPLOAD_ENDPOINT = `${PLANTS_URL}/upload`;
+
 const PlantsAI = () => {
     const [guessedPlant, setGuessedPlant] = React.useState("");
     const [loading, setLoading] = React.useState(false);
@@ -21,10 +29,15 @@ const PlantsAI = () => {
         const formData = new FormData();
         formData.append('plant_image', file);
 
-        const uploadFileResponse = await fetch('http://127.0.0.1:5000/plants/upload', {
+        const uploadFileResponse = await fetch(PLANTS_UPLOAD_ENDPOINT, {
             method: 'POST',
             body: formData
-        }).then(res => res.json());
+        })
+        .then(res => res.json())
+        .catch(() => {
+            alert("There was an error uploading your file. Check server is up and on correct port.");
+        });
+
         const prediction = uploadFileResponse?.prediction[0];
         if (!prediction) return;
 
