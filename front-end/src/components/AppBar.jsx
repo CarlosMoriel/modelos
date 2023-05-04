@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-const pages = ["Images AI", "Colors AI", "Plants AI"];
+const pages = ["Images AI", "Colors AI", "Plants AI", "Brands Detector AI"];
 const settings = [];
 
 function ResponsiveAppBar({ setPage }) {
