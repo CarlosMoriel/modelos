@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import AppBar from "./components/AppBar";
 import ColorsAi from "./components/ColorsAI";
-import ImagesAI from "./components/ImagesAI";
 import PlantsAI from "./components/PlantsAI";
 import BrandsDetectorAI from "./components/BrandsDetectorAI";
 
@@ -13,19 +12,17 @@ function App() {
 
 	useEffect(() => {
 		switch (page) {
-			case "Images AI":
-				setRenderPage(<ImagesAI />);
-				break;
 			case "Colors AI":
 				setRenderPage(<ColorsAi />);
 				break;
 			case "Plants AI":
 				setRenderPage(<PlantsAI />);
+				break;
 			case "Brands Detector AI":
 				setRenderPage(<BrandsDetectorAI />);
 				break;
 			default:
-				setRenderPage(<ImagesAI />);
+				setRenderPage(<ColorsAi />);
 				break;
 		}
 	}, [page]);

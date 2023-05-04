@@ -24,11 +24,10 @@ path = Path("brands_components")
 if not path.exists():
     path.mkdir()
     for o in brands_components_types:
-        dest = path / o
+        dest = (path/o)
         dest.mkdir(exist_ok=True)
-        # Search and download images for each term
-        results = search_images_ddg(o)
-        download_images(dest, urls=results.attrgot("contentUrl"))
+        results = search_images_ddg(f"{o.replace('-', ' ')}", 300)
+        download_images(dest, urls=results)
 
 # Get all downloaded image files and remove any corrupted ones
 fns = get_image_files(path)
@@ -58,3 +57,10 @@ dls = brands_components.dataloaders(path)
 # Create a learner using a pre-trained resnet18 model and fine-tune it
 learn = vision_learner(dls, resnet18, metrics=error_rate)
 learn.fine_tune(4)
+
+# Visualize the performance of your model (jupyter notebook only)
+interp = ClassificationInterpretation.from_learner(learn)
+interp.plot_confusion_matrix()
+
+# Export the model
+learn.export()

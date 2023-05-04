@@ -11,6 +11,8 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import CardMedia from "@mui/material/CardMedia";
 import axios from "axios";
+import Grid from "@mui/material/Grid";
+import Chip from "@mui/material/Chip";
 
 function BrandsDetectorAI() {
   // State variables for file, loading status, prediction result, error message, and image preview
@@ -78,13 +80,27 @@ function BrandsDetectorAI() {
   return (
     <Container maxWidth="md">
       <Box sx={{ mt: 4, mb: 6 }}>
+
         <Typography variant="h4" align="center" gutterBottom>
           Brands Detector AI
         </Typography>
 
-        <Card sx={{ mt: 4 }}>
-          <CardContent>
+        {/** Display supported components */}
+        <Typography variant="h6" align="center" gutterBottom>
+          Supported Brands:
+        </Typography>
 
+        <Grid container spacing={1} justifyContent="center">
+          {["Nvidia Gpu", "Amd Gpu", "Intel Cpu", "Amd Cpu", "La Poderosa", "La Fiera"].map((component, index) => (
+            <Grid item key={index}>
+              <Chip label={component} sx={{ backgroundColor: "#1976d2", color: "#eeeeee" }} />
+            </Grid>
+          ))}
+        </Grid>
+
+        <Card sx={{ mt: 4 }}>
+
+          <CardContent>
             {imagePreview ? (
               <CardMedia component="img" image={imagePreview} alt="Selected Image" />
             ) : (
@@ -115,10 +131,10 @@ function BrandsDetectorAI() {
             <Button variant="contained" color="primary" onClick={handleUpload} disabled={loading} sx={{ ml: "auto" }}>
               Upload and Predict
             </Button>
-
           </CardActions>
+
         </Card>
-        
+
         {/** Display loading progress */}
         {loading && <LinearProgress sx={{ mt: 2, width: "100%" }} />}
 
@@ -135,7 +151,7 @@ function BrandsDetectorAI() {
             <Typography variant="h5">Predicted Brand: {prediction}</Typography>
           </Paper>
         )}
-        
+
       </Box>
     </Container>
   );
