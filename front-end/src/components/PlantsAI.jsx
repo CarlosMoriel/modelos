@@ -1,4 +1,6 @@
 import React from "react";
+import Grid from "@mui/material/Grid";
+import Chip from "@mui/material/Chip";
 
 const BASE_URL = "http://127.0.0.1";
 const PORT = "8000";
@@ -33,10 +35,10 @@ const PlantsAI = () => {
             method: 'POST',
             body: formData
         })
-        .then(res => res.json())
-        .catch(() => {
-            alert("There was an error uploading your file. Check server is up and on correct port.");
-        });
+            .then(res => res.json())
+            .catch(() => {
+                alert("There was an error uploading your file. Check server is up and on correct port.");
+            });
 
         const prediction = uploadFileResponse?.prediction[0];
         if (!prediction) return;
@@ -51,8 +53,23 @@ const PlantsAI = () => {
             <p>
                 <a onClick={ () => setShowSupportedPlants(!showSupportedPlants) }>See supported plants</a>
             </p>
-            { showSupportedPlants && <p>Aptenia cordifolia, aloe vera, epipremnum aureum, sansevieria trifasciata, spathiphyllum</p> }
-            <input type="file" accept="image/*" onChange={ (e) => uploadImage(e) } />
+            {
+                showSupportedPlants && (
+                    <Grid container spacing={ 1 } justifyContent="center">
+                        { ["Aptenia cordifolia", "aloe vera", "epipremnum aureum", "sansevieria trifasciata", "spathiphyllum"].map((component, index) => (
+                            <Grid item key={ index }>
+                                <Chip label={ component } sx={ { backgroundColor: "#1976d2", color: "#eeeeee" } } />
+                            </Grid>
+                        )) }
+                    </Grid>)
+            }
+
+            <div style={{
+                marginTop: "1rem",
+            }}>
+                <input type="file" accept="image/*" onChange={ (e) => uploadImage(e) } />
+            </div>
+
             { guessedPlant && !loading && <h1>Your plant seems to be: { guessedPlant }</h1> }
         </div>
     )
