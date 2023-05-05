@@ -20,4 +20,10 @@ cd back-end
 flask run
 ```
 
+En caso de correr el back end en Mac OS (versiones mas nuevas del SO):
+
+```bash
+flask run --port 8000
+```
+
 
