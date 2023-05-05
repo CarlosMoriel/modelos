@@ -4,6 +4,7 @@ from flask_cors import CORS
 from plants.classifyPlants import classify_image
 from brands_components.classify_brands_components import classify_brands
 from flask_cors import CORS
+import time
 
 app = Flask(__name__)
 CORS(app)
@@ -36,6 +37,10 @@ def upload_brands_file():
 
         f = request.files['brands_image']
         pred, _ = classify_brands(f)
+
+        # Wait for 3 seconds to appreaciate the magician.
+        time.sleep(3)
+
         return {
             "success": "true",
             "prediction": pred,

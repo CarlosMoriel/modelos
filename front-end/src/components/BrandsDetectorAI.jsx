@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -13,15 +13,46 @@ import CardMedia from "@mui/material/CardMedia";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
+import Lottie from "lottie-react";
 
 function BrandsDetectorAI() {
+  
   // State variables for file, loading status, prediction result, error message, and image preview
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [magicianAnimationData, setMagicianAnimationData] = useState(null);
 
+
+  // Overrides for predictions.
+  const predictionMapping = {
+    pc_gamer: "Nada mas y nada menos que... La Poderosa!",
+    macbook: "La Fiera!",
+    nvidia_gpu: "Una Nvidia gi-pi-u",
+    amd_gpu: "Una AMD gi-pi-u",
+    intel_cpu: "Un Intel ci-pi-u",
+    amd_cpu: "Un AMD ci-pi-u",
+    Uncertain: "Perdoneme, no le se... :'("
+  };
+
+  // Helper function that fetch the magician animation.
+  const fetchMagicianAnimation = async () => {
+    try {
+      const response = await fetch("https://assets6.lottiefiles.com/packages/lf20_mthcmrjn.json");
+      const animationData = await response.json();
+      setMagicianAnimationData(animationData);
+    } catch (error) {
+      console.error("Error fetching magician animation:", error);
+    }
+  };
+
+  // Fetch the magician animation on component mount.
+  useEffect(() => {
+    fetchMagicianAnimation();
+  }, []);
+  
   // Handle file input change
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -52,6 +83,7 @@ function BrandsDetectorAI() {
 
     setError(null);
     setPrediction(null);
+    setLoading(true);
 
     // Prepare form data
     const formData = new FormData();
@@ -67,13 +99,21 @@ function BrandsDetectorAI() {
 
       // Update prediction state or display an error
       if (response.data.success === "true") {
-        setPrediction(response.data.prediction);
+
+        // Overriding the prediction with a powerful one.
+        const prediction = predictionMapping[response.data.prediction];
+        setPrediction(prediction);
+        
       } else {
         setError(response.data.error);
       }
+
     } catch (error) {
       setError("An error occurred while processing the image.");
     }
+    
+    // Hide our magician.
+    setLoading(false);
   };
 
   // Render the component
@@ -137,6 +177,20 @@ function BrandsDetectorAI() {
 
         {/** Display loading progress */}
         {loading && <LinearProgress sx={{ mt: 2, width: "100%" }} />}
+        
+        {/** Display magician animation while loading */}
+        {loading && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              mt: 2,
+            }}
+          >
+            <Lottie animationData={magicianAnimationData} style={{ width: 150, height: 150 }} />
+          </Box>
+        )}
 
         {/** Display error message if any */}
         {error && (
@@ -147,9 +201,11 @@ function BrandsDetectorAI() {
 
         {/** Display prediction result if any */}
         {prediction && (
-          <Paper sx={{ mt: 2, p: 2, width: "100%", textAlign: "center" }}>
-            <Typography variant="h5">Predicted Brand: {prediction}</Typography>
-          </Paper>
+          <Box width="100%" mx="auto">
+            <Paper sx={{ mt: 2, p: 2, textAlign: "center" }}>
+              <Typography variant="h5">Predicted Brand: {prediction}</Typography>
+            </Paper>
+          </Box>
         )}
 
       </Box>

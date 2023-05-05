@@ -16,6 +16,8 @@
 		"@mui/styled-engine-sc": "^5.12.0",
 		"axios": "^1.4.0",
 		"brain.js": "^2.0.0-beta.23",
+		"lottie-react": "^2.4.0",
+		"lottie-web": "^5.11.0",
 		"react": "^18.2.0",
 		"react-color": "^2.19.3",
 		"react-dom": "^18.2.0",
